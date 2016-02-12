@@ -1,0 +1,18 @@
+# Doc at http://docs.ansible.com/ansible/cs_securitygroup_rule_module.html
+
+# Rules to be added in the security group
+  - name: SSH to nginx instances
+    local_action:
+     module: cs_securitygroup_rule
+     security_group: "{{ security_group_name }}"
+     start_port: 22
+     end_port: 22
+     # you want might want to restrict this to a secure host, like a bastion
+     # see: https://www.exoscale.ch/syslog/2016/01/15/secure-your-cloud-computing-architecture-with-a-bastion/
+
+  - name: Http from anywhere
+    local_action:
+     module: cs_securitygroup_rule
+     security_group: "{{ security_group_name }}"
+     start_port: 80
+     end_port: 80

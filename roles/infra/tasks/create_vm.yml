@@ -1,0 +1,10 @@
+  - name: Create instances
+    local_action:
+      module: cs_instance
+      name: "nginx-{{ item }}"
+      template: "{{ template }}"
+      service_offering: "{{ instance_type }}"
+      ssh_key: "{{ ssh_key }}"
+      security_groups: [ '{{ security_group_name }}' ]
+    with_sequence: count={{ num_nodes }}
+    register: nginx_nodes

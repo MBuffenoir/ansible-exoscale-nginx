@@ -1,0 +1,7 @@
+# Create k8s security group
+
+  - name: Create Security Group
+    local_action:
+     module: cs_securitygroup
+     name: "{{ security_group_name }}"
+     description: our nginx webservers

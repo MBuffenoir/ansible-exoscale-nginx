@@ -1,0 +1,6 @@
+---
+- hosts: [nginx_nodes]
+  remote_user: root
+  tasks:
+    - name: Install nginx web server
+      apt: name=nginx state=latest update_cache=true
