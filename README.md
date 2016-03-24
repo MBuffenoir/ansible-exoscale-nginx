@@ -8,12 +8,15 @@ This article is going to showcase a basic example of a couple Ansible playbooks 
 
 ##Requirements
 
-Besides an account on Exoscale the only needed tools are Ansible and cs
+First get access to the playbooks by cloning the repository:
 
-    $ pip install Ansible
-    $ pip install cs
+    $ git clone git@github.com:MBuffenoir/ansible-exoscale-nginx.git
 
-As per cs documentation, export the following values in your shell:
+All the needed tools (Ansible and cs) are listed in the requirements.txt file and you can install them with a simple:
+
+    $ pip install -r requirements
+
+As per cs (documentation)[https://github.com/exoscale/cs], export the following values in your shell:
 
 ```
 CLOUDSTACK_ENDPOINT="https://api.exoscale.ch/compute"
@@ -21,8 +24,6 @@ CLOUDSTACK_KEY="your api key"
 CLOUDSTACK_SECRET_KEY="your secret key"
 EXOSCALE_ACCOUNT_EMAIL="your@email.net"
 ```
-
-Is it also possible to put those value in a .cloudstack.ini in your current folder. Refer to the (documentation)[https://github.com/exoscale/cs] for more informations.
 
 ##A quick tour of Ansible
 
