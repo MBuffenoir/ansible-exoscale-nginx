@@ -1,6 +1,6 @@
 #Deploy nginx webservers on Exoscale with Ansible
 
-In our (precedent article)[https://www.exoscale.ch/syslog/2016/02/23/get-started-with-the-exoscale-api-client/] we discussed how to use the command line tool called cs to automate the deployment of virtual machines on Exoscale. This tool is very useful to provision VMs or execute some network related commands. But how can we go further and also start needed services on those VMs ?
+In our [precedent article](https://www.exoscale.ch/syslog/2016/02/23/get-started-with-the-exoscale-api-client/) we discussed how to use the command line tool called cs to automate the deployment of virtual machines on Exoscale. This tool is very useful to provision VMs or execute some network related commands. But how can we go further and also start needed services on those VMs ?
 
 To do so, devops engineers are using provisionning tools. There are many of them available, such has puppet or chef, but one is particularly is pairing particularly well with Exoscale: Ansible. Since version 2.0, it natively features a cloudstack module that can be used to provision VMs on Exoscale. It is really easy to set up, as it only requires a functionning ssh connection with a VM to be able to deploy services.
 
@@ -16,7 +16,7 @@ All the needed tools (Ansible and cs) are listed in the requirements.txt file an
 
     $ pip install -r requirements
 
-As per cs (documentation)[https://github.com/exoscale/cs], export the following values in your shell:
+As per cs [documentation](https://github.com/exoscale/cs), export the following values in your shell:
 
 ```
 CLOUDSTACK_ENDPOINT="https://api.exoscale.ch/compute"
@@ -27,7 +27,7 @@ EXOSCALE_ACCOUNT_EMAIL="your@email.net"
 
 ##A quick tour of Ansible
 
-Ansible, meant to be run from a management computer (like a (bastion)[https://www.exoscale.ch/syslog/2016/01/15/secure-your-cloud-computing-architecture-with-a-bastion/] for example), is taking its instructions from text files called playbooks. Those files contains a succession of instructions in YAML format. Those instructions can be run on localhost or remote machines. Ansible being agentless, it does not need anything else than a functionning ssh connection to a machine in order to execute commands on it.
+Ansible, meant to be run from a management computer (like a [bastion](https://www.exoscale.ch/syslog/2016/01/15/secure-your-cloud-computing-architecture-with-a-bastion/) for example), is taking its instructions from text files called playbooks. Those files contains a succession of instructions in YAML format. Those instructions can be run on localhost or remote machines. Ansible being agentless, it does not need anything else than a functionning ssh connection to a machine in order to execute commands on it.
 
 Our goal in this example is to run two playbooks:
 - The first one is creating the ssh keys, a specific network security group and Ubuntu virtual machines.
