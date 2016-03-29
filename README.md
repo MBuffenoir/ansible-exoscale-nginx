@@ -11,6 +11,7 @@ This article is going to showcase a basic example of a couple Ansible playbooks 
 First get access to the playbooks by cloning the repository:
 
     $ git clone git@github.com:MBuffenoir/ansible-exoscale-nginx.git
+    $ cd ansible-exoscale-nginx
 
 All the needed tools (Ansible and cs) are listed in the requirements.txt file and you can install them with a simple:
 
