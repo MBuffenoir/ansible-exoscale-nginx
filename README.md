@@ -62,14 +62,14 @@ Let's analyze a little bit the content of our project:
 Our two playbooks are sitting at the root of the project.
 If we dig a little bit into the create-instances-playbook.yml file, we will see several interesting informations:
 - Variables that help define our infrastructure (you can modify this if need be)
-- A list of roles to apply. Roles are defined in folders and contains list of playbooks (described in the main.yml at the root of each folders). Those playbooks are executed sequentially as listed in the main.yml files at the root of each folders. You could view then as "sub-playbook" helping to keep your project organized and reusable.
+- A list of roles to apply. Roles are defined in folders and contains list of playbooks (described in the main.yml at the root of each folders). Those playbooks are executed sequentially as listed in the main.yml files at the root of each folders. You could view them as "sub-playbook" helping to keep your project organized and reusable.
 This playbook will define and install the infrastructure part of our little project.
 
 The second playbook is more straighforward and will be used to start some nginx webservers.
 
 ##Instances creation on Exoscale
 
-As just mentionnend, in our create-instances-playbook.yml file we will find a `vars` section that define the number of webservers we want to deploy and the kind of linux distribution to be installed. Of course you can modify those values according to your preferences. The latest template are always available at https://www.exoscale.ch/open-cloud/templates/.
+As just mentionnend, in our create-instances-playbook.yml file we will find a `vars` section that define the number of webservers we want to deploy and the kind of linux distribution to be installed. Of course you can modify those values according to your preferences. The latest template are always available at https://www.exoscale.ch/open-cloud/templates/.
 
 ```
   vars:
