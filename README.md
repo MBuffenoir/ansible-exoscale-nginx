@@ -69,7 +69,7 @@ The second playbook is more straighforward and will be used to start some nginx 
 
 ##Instances creation on Exoscale
 
-As just mentionnend, in our create-instances-playbook.yml file we will find a `vars` section that define the number of webservers we want to deploy and the kind of linux distribution to be installed. Of course you can modify those values according to your preferences.
+As just mentionnend, in our create-instances-playbook.yml file we will find a `vars` section that define the number of webservers we want to deploy and the kind of linux distribution to be installed. Of course you can modify those values according to your preferences. The latest template are always available at https://www.exoscale.ch/open-cloud/templates/.
 
 ```
   vars:
