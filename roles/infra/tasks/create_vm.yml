@@ -1,7 +1,7 @@
   - name: Create instances
     local_action:
       module: cs_instance
-      name: "nginx-{{ item }}"
+      display_name: "nginx-{{ item }}"
       template: "{{ template }}"
       service_offering: "{{ instance_type }}"
       ssh_key: "{{ ssh_key }}"
