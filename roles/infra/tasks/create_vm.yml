@@ -6,5 +6,6 @@
       service_offering: "{{ instance_type }}"
       ssh_key: "{{ ssh_key }}"
       security_groups: [ '{{ security_group_name }}' ]
+      zone: "{{ zone }}"
     with_sequence: count={{ num_nodes }}
     register: nginx_nodes
