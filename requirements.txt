@@ -1,2 +1,3 @@
-ansible==2.0.1.0
-cs==0.7.1
+ansible==2.3.0.0
+cs==1.1.1
+sshpubkeys==2.2.0
