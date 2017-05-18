@@ -1,1 +1,3 @@
 cloudstack.ini
+*.retry
+inventory

@@ -5,7 +5,8 @@
     ssh_key: nginx
     num_nodes: 2
     security_group_name: nginx
-    template: Linux Ubuntu 14.04 LTS 64-bit 10G Disk (2016-10-20-85bb6c)
+    template: Linux Ubuntu 16.04 LTS 64-bit
+    template_filter: featured
     instance_type: Tiny
     zone: ch-gva-2
 
