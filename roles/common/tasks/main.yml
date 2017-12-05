@@ -1,2 +1,2 @@
 ---
-  - include: create_sshkey.yml
+  - import_tasks: create_sshkey.yml
