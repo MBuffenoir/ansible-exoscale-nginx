@@ -1,3 +1,10 @@
 cloudstack.ini
 *.retry
 inventory
+
+# pip
+bin
+lib
+lib64
+pip-selfcheck.json
+pyvenv.cfg

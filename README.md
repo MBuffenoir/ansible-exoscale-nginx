@@ -1,32 +1,34 @@
-#Deploy nginx webservers on Exoscale with Ansible
+# Deploy nginx webservers on Exoscale with Ansible
 
-In our [precedent article](https://www.exoscale.ch/syslog/2016/02/23/get-started-with-the-exoscale-api-client/) we discussed how to use the command line tool called cs to automate the deployment of virtual machines on Exoscale. This tool is very useful to provision VMs or execute some network related commands. But how can we go further and also start needed services on those VMs ?
+In our [precedent article](https://www.exoscale.ch/syslog/2016/02/23/get-started-with-the-exoscale-api-client/) we discussed how to use the command line tool called cs to automate the deployment of virtual machines on Exoscale. This tool is very useful to provision VMs or execute some network related commands. But how can we go further and also start needed services on those VMs?
 
 To do so, devops engineers are using provisionning tools. There are many of them available, such has puppet or chef, but one is pairing particularly well with Exoscale: Ansible. Since version 2.0, it natively features a cloudstack module that can be used to provision VMs on Exoscale. It is really easy to set up, as it only requires a functionning ssh connection with a VM to be able to deploy services.
 
 This article is going to showcase a basic example of a couple Ansible playbooks aiming to deploy some web servers on Exoscale in a few seconds.
 
-##Requirements
+## Requirements
 
 First get access to the playbooks by cloning the repository:
 
-    $ git clone git@github.com:MBuffenoir/ansible-exoscale-nginx.git
+    $ git clone https://github.com/MBuffenoir/ansible-exoscale-nginx
     $ cd ansible-exoscale-nginx
 
 All the needed tools (Ansible and cs) are listed in the requirements.txt file and you can install them with a simple:
 
-    $ pip install -r requirements
+    $ python3 -m venv .
+    $ . bin/activate
+    (ansible-exoscale-nginx) $ pip install -r requirements.txt
 
 As per cs [documentation](https://github.com/exoscale/cs), export the following values in your shell:
 
-```
+```ini
 CLOUDSTACK_ENDPOINT="https://api.exoscale.ch/compute"
 CLOUDSTACK_KEY="your api key"
 CLOUDSTACK_SECRET_KEY="your secret key"
 EXOSCALE_ACCOUNT_EMAIL="your@email.net"
 ```
 
-##A quick tour of Ansible
+## A quick tour of Ansible
 
 Ansible, meant to be run from a management computer (like a [bastion](https://www.exoscale.ch/syslog/2016/01/15/secure-your-cloud-computing-architecture-with-a-bastion/) for example), is taking its instructions from text files called playbooks. Those files contain a succession of instructions in YAML format. Those instructions can be run on localhost or remote machines. Ansible being agentless, it does not need anything else than a functionning ssh connection to a machine in order to execute commands on it.
 
@@ -34,7 +36,7 @@ Our goal in this example is to run two playbooks:
 - The first one is creating the ssh keys, a specific network security group and Ubuntu virtual machines.
 - The second one is installing our webserver services via apt in those previously created virtual machines.
 
-##Ansible project organization
+## Ansible project organization
 
 Let's analyze a little bit the content of our project:
 
@@ -46,19 +48,20 @@ Let's analyze a little bit the content of our project:
 ├── inventory
 └── roles
     ├── common
-    │   └── tasks
-    │       ├── create_sshkey.yml
-    │       └── main.yml
+    │   └── tasks
+    │       ├── create_sshkey.yml
+    │       └── main.yml
     └── infra
         ├── tasks
-        │   ├── create_inv.yml
-        │   ├── create_secgroup.yml
-        │   ├── create_secgroup_rules.yml
-        │   ├── create_vm.yml
-        │   └── main.yml
+        │   ├── create_inv.yml
+        │   ├── create_secgroup.yml
+        │   ├── create_secgroup_rules.yml
+        │   ├── create_vm.yml
+        │   └── main.yml
         └── templates
             └── inventory.j2
 ```
+
 Our two playbooks are sitting at the root of the project.
 If we dig a little bit into the create-instances-playbook.yml file, we will see several interesting informations:
 - Variables that help define our infrastructure (you can modify this if need be)
@@ -67,11 +70,11 @@ This playbook will define and install the infrastructure part of our little proj
 
 The second playbook is more straighforward and will be used to start some nginx webservers.
 
-##Instances creation on Exoscale
+## Instances creation on Exoscale
 
 As just mentionnend, in our create-instances-playbook.yml file we will find a `vars` section that define the number of webservers we want to deploy and the kind of linux distribution to be installed. Of course you can modify those values according to your preferences. The latest templates are always available at https://www.exoscale.ch/open-cloud/templates/.
 
-```
+```yaml
   vars:
     ssh_key: nginx
     num_nodes: 2
@@ -167,13 +170,15 @@ Of course, you should also be able to connect to your newly created instances wi
         $ ssh -i ~/.ssh/id_rsa_nginx root@<instance-ip-address>
 
 
-##Start a nginx webserver on the created Instances
+## Start a nginx webserver on the created Instances
 
 Now that our infrastructure is set up, let's see how we can use Ansible to start services.
 A quick look into our second playbook reveals one simple task:
 
-    - name: Install nginx web server
-      apt: name=nginx state=latest update_cache=true
+```yaml
+- name: Install nginx web server
+  apt: name=nginx state=latest update_cache=true
+```
 
 Since we installed Ubuntu on our machines, we chose to use in this playbook the [apt](http://docs.ansible.com/ansible/apt_module.html) module from the Ansible [collection](http://docs.ansible.com/ansible/list_of_all_modules.html).
 Of course Ansible supports all major distribution package managers, so you could easily adapt this to something else than apt.
@@ -190,7 +195,7 @@ And we can now test that our webservers are live with a simple:
 
     $ curl http://185.19.x.x
 
-##Go further
+## Go further
 
 Of course the possibilities with Ansible are endless, as it is also possible to write down you own module.
 A good exercise for the reader would be to start by writing some playbooks to do some routine commands on the instances, like upgrading the system, ensure the webservers are correctly started, etc ..
